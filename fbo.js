@@ -30,6 +30,7 @@ var FBO = function( exports ){
         };
         rtt = new THREE.WebGLRenderTarget( width,height, options);
 
+        renderMaterial.uniforms.positions.value = rtt;
 
         //5 the simulation:
         //create a bi-unit quadrilateral and uses the simulation material to update the Float Texture
@@ -67,7 +68,7 @@ var FBO = function( exports ){
         exports.renderer.render( scene, orthoCamera, rtt, true );
 
         //2 use the result of the swap as the new position for the particles' renderer
-        exports.particles.material.uniforms.positions.value = rtt;
+        // exports.particles.material.uniforms.positions.value = rtt;
 
     };
     return exports;

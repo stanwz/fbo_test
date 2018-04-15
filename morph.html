@@ -170,13 +170,14 @@
         }
 
 
-        function update()
+        function update(timestamp)
         {
             requestAnimationFrame(update);
 
             //update params
-            simulationShader.uniforms.timer.value = parseFloat( slider.value );
-            FBO.particles.rotation.y -= Math.PI / 180 * .1;
+//            simulationShader.uniforms.timer.value = parseFloat( slider.value );
+            simulationShader.uniforms.timer.value = Math.abs(Math.sin(timestamp/3000));
+//            FBO.particles.rotation.y -= Math.PI / 180 * .1;
 
             //update simulation
             FBO.update();
