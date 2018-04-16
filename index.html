@@ -98,7 +98,10 @@
                 uniforms: {
                     textureA: { type: 't', value: textureA },
                     textureB: { type: 't', value: textureB },
-                    timer: { type: 'f', value: 0}
+                    timer: { type: 'f', value: 0},
+                    frequency: { type: "f", value: 0.01 },
+                    amplitude: { type: "f", value: 50 },
+                    maxDistance: { type: "f", value: 48 }
                 },
                 vertexShader: Loader.get( 'simulation_vs'),
                 fragmentShader:  Loader.get( 'simulation_fs')
