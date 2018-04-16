@@ -19,7 +19,7 @@
 
     <script src="vendor/three.min.js"></script>
     <script src="vendor/OrbitControls.js"></script>
-    <script src="ShaderLoader.js"></script>
+    <script src="Loader.js"></script>
     <script src="fbo.js"></script>
 
     <script>
@@ -29,13 +29,13 @@
 
         window.onload = function() {
 
-            var sl = new ShaderLoader();
-            sl.loadShaders({
-                simulation_vs : "",
-                simulation_fs : "",
-                render_vs : "",
-                render_fs : ""
-            }, "./glsl/noise/", init );
+            var sl = new Loader();
+            sl.loadFiles({
+                simulation_vs : './glsl/noise/simulation_vs.glsl',
+                simulation_fs : './glsl/noise/simulation_fs.glsl',
+                render_vs : './glsl/noise/render_vs.glsl',
+                render_fs : './glsl/noise/render_fs.glsl'
+            }, init );
 
         };
 
@@ -76,8 +76,8 @@
                     amplitude: { type: "f", value: 96 },
                     maxDistance: { type: "f", value: 48 }
                 },
-                vertexShader: ShaderLoader.get( "simulation_vs"),
-                fragmentShader:  ShaderLoader.get( "simulation_fs")
+                vertexShader: Loader.get( "simulation_vs"),
+                fragmentShader:  Loader.get( "simulation_fs")
 
             });
 
@@ -88,8 +88,8 @@
                     big: { type: "v3", value: new THREE.Vector3(207,221,212).multiplyScalar(1/0xFF) },
                     small: { type: "v3", value: new THREE.Vector3( 213,239,229).multiplyScalar(1/0xFF) }
                 },
-                vertexShader: ShaderLoader.get( "render_vs"),
-                fragmentShader: ShaderLoader.get( "render_fs"),
+                vertexShader: Loader.get( "render_vs"),
+                fragmentShader: Loader.get( "render_fs"),
                 transparent: true,
                 side:THREE.DoubleSide
 //                blending:THREE.AdditiveBlending
@@ -103,12 +103,11 @@
             update();
         }
 
-        Math.cbrt = Math.cbrt || function(x) {
-            var y = Math.pow(Math.abs(x), 1/3);
-            return x < 0 ? -y : y;
-        };
-        function getPoint(v,size)
-        {
+//        Math.cbrt = Math.cbrt || function(x) {
+//            var y = Math.pow(Math.abs(x), 1/3);
+//            return x < 0 ? -y : y;
+//        };
+        function getPoint(v,size) {
             //the 'discard' method, not the most efficient
             v.x = Math.random() * 2 - 1 ;
             v.y = Math.random() * 2 - 1 ;
@@ -169,12 +168,11 @@
 
             //update mesh
             simulationShader.uniforms.timer.value += 0.01;
-            FBO.particles.rotation.x = Math.cos( Date.now() *.001 ) * Math.PI / 180 * 2;
-            FBO.particles.rotation.y -= Math.PI / 180 * .05;
+//            FBO.particles.rotation.x = Math.cos( Date.now() *.001 ) * Math.PI / 180 * 2;
+//            FBO.particles.rotation.y -= Math.PI / 180 * .05;
 
             //render the particles at the new location
             renderer.render( scene, camera );
-
         }
     </script>
 

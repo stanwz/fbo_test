@@ -18,7 +18,7 @@
 <body>
 
     <script src="vendor/three.min.js"></script>
-    <script src="ShaderLoader.js"></script>
+    <script src="Loader.js"></script>
     <script src="fbo.js"></script>
 
     <script>
@@ -27,8 +27,8 @@
 
         window.onload = function() {
 
-            var sl = new ShaderLoader();
-            sl.loadShaders({
+            var sl = new Loader();
+            sl.loadFiles({
                 simulation_vs : "",
                 simulation_fs : "",
                 render_vs : "",
@@ -71,8 +71,8 @@
                 uniforms: {
                     positions: { type: "t", value: positions }
                 },
-                vertexShader: ShaderLoader.get( "simulation_vs" ),
-                fragmentShader:  ShaderLoader.get( "simulation_fs" )
+                vertexShader: Loader.get( "simulation_vs" ),
+                fragmentShader:  Loader.get( "simulation_fs" )
             });
 
 
@@ -83,8 +83,8 @@
                     positions: { type: "t", value: null },
                     pointSize: { type: "f", value: 2 }
                 },
-                vertexShader: ShaderLoader.get( "render_vs" ),
-                fragmentShader: ShaderLoader.get( "render_fs" ),
+                vertexShader: Loader.get( "render_vs" ),
+                fragmentShader: Loader.get( "render_fs" ),
                 transparent: true,
                 blending:THREE.AdditiveBlending
             } );
