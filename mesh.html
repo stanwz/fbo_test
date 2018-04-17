@@ -31,11 +31,11 @@
 
             var sl = new Loader();
             sl.loadFiles({
-                simulation_vs : "",
-                simulation_fs : "",
-                render_vs : "",
-                render_fs : ""
-            }, "./glsl/mesh/", loadMesh );
+                simulation_vs : './glsl/mesh/simulation_vs.glsl',
+                simulation_fs : './glsl/mesh/simulation_fs.glsl',
+                render_vs : './glsl/mesh/render_vs.glsl',
+                render_fs : './glsl/mesh/render_fs.glsl'
+            }, loadMesh );
 
         };
 

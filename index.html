@@ -33,7 +33,7 @@
 
     <script>
 
-        var scene, camera, renderer, simulationShader, renderShader, controls;
+        var scene, camera, renderer, simulationShader, renderShader, controls, slider;
 
 
         window.onload = function() {
@@ -44,7 +44,7 @@
                 simulation_fs : './glsl/morph/simulation.frag',
                 render_vs : './glsl/morph/render.vert',
                 render_fs : './glsl/morph/render.frag',
-                brain:  './json/brain.json',
+                stadium:  './json/stadium.json',
                 gloves:  './json/gloves.json'
             }, init );
 
@@ -72,18 +72,18 @@
 
             var count = width * height * 3;
 
-            var brain = JSON.parse(Loader.get('brain'));
+            var stadium = JSON.parse(Loader.get('stadium'));
             var gloves = JSON.parse(Loader.get('gloves'));
 
 
-//            console.log(bunny.length, dragon.length);
+            console.log(gloves.length, stadium.length);
 
-            brain = fillPositions(count, brain);
+            stadium = fillPositions(count, stadium);
             gloves = fillPositions(count, gloves);
 
             //first model
 //            var dataA = getRandomData( width, height, 256 );
-            var dataA = brain;
+            var dataA = stadium;
             var textureA = new THREE.DataTexture( dataA, width, height, THREE.RGBFormat, THREE.FloatType);
             textureA.needsUpdate = true;
 
@@ -99,8 +99,8 @@
                     textureA: { type: 't', value: textureA },
                     textureB: { type: 't', value: textureB },
                     timer: { type: 'f', value: 0},
-                    frequency: { type: "f", value: 0.01 },
-                    amplitude: { type: "f", value: 50 },
+                    frequency: { type: "f", value: 0.025 },
+                    amplitude: { type: "f", value: 35 },
                     maxDistance: { type: "f", value: 48 }
                 },
                 vertexShader: Loader.get( 'simulation_vs'),
@@ -111,10 +111,10 @@
             renderShader = new THREE.ShaderMaterial( {
                 uniforms: {
                     positions: { type: 't', value: null },
-                    pointSize: { type: 'f', value: 1 },
+                    pointSize: { type: 'f', value: 2. },
                     alpha: { type: 'f', value:.5 },
-                    colorA: {type: 'f', value: 0.63},
-                    colorB: {type: 'f', value: 0.33},
+                    colorA: {type: 'f', value: 0.22},
+                    colorB: {type: 'f', value: 0.53},
                     timer: { type: 'f', value: 0}
                 },
                 vertexShader: Loader.get( 'render_vs'),
@@ -209,7 +209,7 @@
 
             //update params
 //            simulationShader.uniforms.timer.value = parseFloat( slider.value );
-            simulationShader.uniforms.timer.value = renderShader.uniforms.timer.value = (Math.sin(timestamp/2000) + 1) / 2;
+            simulationShader.uniforms.timer.value = renderShader.uniforms.timer.value = smoothStep((Math.sin(timestamp/2000) + 1) / 2);
 //            FBO.particles.rotation.y -= Math.PI / 180 * .1;
 
             //update simulation
@@ -219,6 +219,11 @@
             renderer.render( scene, camera );
 
         }
+
+        function smoothStep(x) { //Normal smoothstep
+            return -2 * Math.pow(x, 3) + 3 * Math.pow(x, 2);
+        }
+
     </script>
 
 </body>

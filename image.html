@@ -29,11 +29,11 @@
 
             var sl = new Loader();
             sl.loadFiles({
-                simulation_vs : "",
-                simulation_fs : "",
-                render_vs : "",
-                render_fs : ""
-            }, "./glsl/image/", loadImage );
+                simulation_vs : './glsl/image/simulation_vs.glsl',
+                simulation_fs : './glsl/image/simulation_fs.glsl',
+                render_vs : './glsl/image/render_vs.glsl',
+                render_fs : './glsl/image/render_fs.glsl'
+            }, loadImage );
 
         };
 

@@ -3,6 +3,7 @@ uniform float colorB;
 uniform float timer;
 
 varying vec3 vPos;
+varying float size;
 
 float hue2rgb(float f1, float f2, float hue) {
     if (hue < 0.0)
@@ -52,9 +53,7 @@ void main()
 
     float colorDistance = 0.0;
     float pointDistance = length(vPos);
-    if (pointDistance < .65 ){
-        colorDistance =  (-.2 + pointDistance * .4);
-    }
+    colorDistance =  (pointDistance * .0015);
 
     float color = mix(colorA, colorB, timer);
 
@@ -64,5 +63,10 @@ void main()
 
     vec3 col = hsl2rgb(hue, saturation, light);
 
-    gl_FragColor = vec4( col, .75 );
+    if( size > 1. )
+    {
+        gl_FragColor = vec4( col * vec3( 1. - length( gl_PointCoord.xy-vec2(.7) ) ) * 1.5, .95 );
+    } else {
+        gl_FragColor = vec4( col, .5 );
+    }
 }
