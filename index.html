@@ -209,7 +209,7 @@
 
             //update params
 //            simulationShader.uniforms.timer.value = parseFloat( slider.value );
-            simulationShader.uniforms.timer.value = renderShader.uniforms.timer.value = smoothStep((Math.sin(timestamp/2000) + 1) / 2);
+            simulationShader.uniforms.timer.value = renderShader.uniforms.timer.value = (Math.sin(timestamp/2000) + 1) / 2;
 //            FBO.particles.rotation.y -= Math.PI / 180 * .1;
 
             //update simulation
@@ -218,10 +218,6 @@
             //render the particles at the new location
             renderer.render( scene, camera );
 
-        }
-
-        function smoothStep(x) { //Normal smoothstep
-            return -2 * Math.pow(x, 3) + 3 * Math.pow(x, 2);
         }
 
     </script>

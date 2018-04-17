@@ -136,7 +136,8 @@
      vec3 destination = texture2D( textureB, vUv ).xyz;
 
      //lerp
-     vec3 pos = mix( origin, destination, timer );
+     float shapeTimer = smoothstep(0.05, 0.95, timer);
+     vec3 pos = mix( origin, destination, shapeTimer );
 
      vec3 tar = pos + curl( pos.x * frequency, pos.y * frequency, pos.z * frequency ) * amplitude;
 
