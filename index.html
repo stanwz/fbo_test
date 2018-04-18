@@ -99,9 +99,8 @@
                     textureA: { type: 't', value: textureA },
                     textureB: { type: 't', value: textureB },
                     timer: { type: 'f', value: 0},
-                    frequency: { type: "f", value: 0.025 },
-                    amplitude: { type: "f", value: 35 },
-                    maxDistance: { type: "f", value: 48 }
+                    frequency: { type: "f", value: .005 },
+                    amplitude: { type: "f", value: 2 }
                 },
                 vertexShader: Loader.get( 'simulation_vs'),
                 fragmentShader:  Loader.get( 'simulation_fs')
@@ -203,13 +202,14 @@
         }
 
 
-        function update(timestamp)
+        function update()
         {
             requestAnimationFrame(update);
 
             //update params
 //            simulationShader.uniforms.timer.value = parseFloat( slider.value );
-            simulationShader.uniforms.timer.value = renderShader.uniforms.timer.value = (Math.sin(timestamp/2000) + 1) / 2;
+            simulationShader.uniforms.timer.value += 1;
+            renderShader.uniforms.timer.value += 1;
 //            FBO.particles.rotation.y -= Math.PI / 180 * .1;
 
             //update simulation

@@ -83,7 +83,8 @@
  vec3 curl(float	x,	float	y,	float	z)
  {
 
-     float	eps	= 1., eps2 = 2. * eps;
+     //eps value can decide minimum frequency
+     float	eps	= 1., eps2 = 2.;
      float	n1,	n2,	a,	b;
 
      x += timer * .05;
@@ -136,14 +137,10 @@
      vec3 destination = texture2D( textureB, vUv ).xyz;
 
      //lerp
-     float shapeTimer = smoothstep(0.05, 0.95, timer);
-     vec3 pos = mix( origin, destination, shapeTimer );
+     float progress = smoothstep(0.05, 0.95, (sin(timer/120.) + 1.) / 2.);
+     vec3 pos = mix( origin, destination, progress );
 
-     vec3 tar = pos + curl( pos.x * frequency, pos.y * frequency, pos.z * frequency ) * amplitude;
-
-     float d = length( pos-tar ) / maxDistance;
-
-     pos = mix( pos, tar, pow( d, 5. ) );
+     pos = pos + curl( pos.x * frequency, pos.y * frequency, pos.z * frequency ) * amplitude;
 
      gl_FragColor = vec4( pos,1.0 );
 

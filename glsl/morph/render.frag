@@ -55,7 +55,7 @@ void main()
     float pointDistance = length(vPos);
     colorDistance =  (pointDistance * .0015);
 
-    float color = mix(colorA, colorB, timer);
+    float color = mix(colorA, colorB, (sin(timer/120.) + 1.) / 2.);
 
     float hue = color + colorDistance;
     float saturation = 1.0;
