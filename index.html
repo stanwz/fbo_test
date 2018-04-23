@@ -99,8 +99,10 @@
                     textureA: { type: 't', value: textureA },
                     textureB: { type: 't', value: textureB },
                     timer: { type: 'f', value: 0},
-                    frequency: { type: "f", value: .005 },
-                    amplitude: { type: "f", value: 2 }
+                    size: {type: 'f', value: width},
+                    level: { type: "f", value: .01 },
+                    frequency: { type: "f", value: .2 },
+                    amplitude: { type: "f", value: 3 }
                 },
                 vertexShader: Loader.get( 'simulation_vs'),
                 fragmentShader:  Loader.get( 'simulation_fs')
