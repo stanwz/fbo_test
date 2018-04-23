@@ -137,16 +137,31 @@ void main() {
     //destination
     vec3 destination = texture2D( textureB, vUv ).xyz;
 
-    float progress = smoothstep(0.05, 0.95, (sin(timer/120.) + 1.) / 2.);
+    float progress = smoothstep(0.0, 1.0, (sin(timer/240.) + 1.) / 2.);
 
     //get particle order from 0 to 1
     float order = vUv.y + vUv.x / size;
     // make the order less linear
-    order = pow(order, .8);
+    order = pow(order, .6);
 
-    vec3 pos = mix( origin, destination, smoothstep(0.0, 1.0, progress * 2.0 - order));
+    float morphRatio = smoothstep(0.0, 1.0, progress * 2.0 - order);
 
-    pos = pos + curl(pos.x * level, pos.y * level, pos.z * level, frequency) * amplitude;
+    vec3 pos = mix( origin, destination, morphRatio);
+
+    pos += curl(pos.x * level, pos.y * level, pos.z * level, frequency) * amplitude;
+
+    vec3 attractor = vec3(order * size * 0.2, 0.0, 0.0);
+    attractor.x += sin(morphRatio * 3.1416) * size * .2;
+    attractor.y += sin(morphRatio * 3.1416 + 1.0) * size * .5;
+    attractor.z += cos(progress * 3.1416 + 2.0) * size *.5;
+    pos += (attractor - pos) * sin(morphRatio * 3.1416);
+
+    vec3 attractor2 = curl(pos.x * level, pos.y * level, pos.z * level, frequency * .2) * amplitude * 15.;
+    attractor2.x += cos(morphRatio * 3.1416) * size * .3;
+    attractor2.y += sin(morphRatio * 3.1416) * size * .3;
+
+    pos +=  attractor2 * sin(morphRatio * 3.14);
+
 
     gl_FragColor = vec4( pos,1.0 );
 

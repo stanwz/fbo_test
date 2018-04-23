@@ -33,7 +33,8 @@
 
     <script>
 
-        var scene, camera, renderer, simulationShader, renderShader, controls, slider;
+        var scene, camera, renderer, simulationShader, renderShader, controls, width, height;
+//        var slider;
 
 
         window.onload = function() {
@@ -68,7 +69,7 @@
             controls = new THREE.OrbitControls( camera );
             controls.update();
 
-            var width = 256, height = 256;
+            width = height = 256;
 
             var count = width * height * 3;
 
@@ -115,7 +116,7 @@
                     pointSize: { type: 'f', value: 2. },
                     alpha: { type: 'f', value:.5 },
                     colorA: {type: 'f', value: 0.22},
-                    colorB: {type: 'f', value: 0.53},
+                    colorB: {type: 'f', value: 0.79},
                     timer: { type: 'f', value: 0}
                 },
                 vertexShader: Loader.get( 'render_vs'),
@@ -150,10 +151,11 @@
 
         function fillPositions(count, array) {
            var  results = new Float32Array(count);
-           var i = count;
+           var i = 0;
 
-           while (i--) {
-               results[i] = array[i] ? array[i] * 256 : 0 ;
+           while (i < count) {
+               results[i] = array[i] ? array[i] * width : 0 ;
+               i++;
            }
 
            return results;

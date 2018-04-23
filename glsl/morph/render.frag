@@ -55,17 +55,17 @@ void main()
     float pointDistance = length(vPos);
     colorDistance =  (pointDistance * .0015);
 
-    float color = mix(colorA, colorB, (sin(timer/120.) + 1.) / 2.);
+    float color = mix(colorA, colorB, (sin(timer/180.) + 1.) / 2.);
 
     float hue = color + colorDistance;
     float saturation = 1.0;
-    float light = 0.65;
+    float light = 0.35;
 
     vec3 col = hsl2rgb(hue, saturation, light);
 
     if( size > 1. )
     {
-        gl_FragColor = vec4( col * vec3( 1. - length( gl_PointCoord.xy-vec2(.7) ) ) * 1.5, .95 );
+        gl_FragColor = vec4( col * vec3( 1. - length(gl_PointCoord.xy - vec2(.7)) ) * 1.5, .95 );
     } else {
         gl_FragColor = vec4( col, .5 );
     }
